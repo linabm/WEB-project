@@ -157,10 +157,10 @@ const Cart = () => {
         <Navbar/>
         <Announcement/>
         <Wrapper>
-            <Title>Votre panier</Title>
+            <Title>Votre Wishlist</Title>
             <Top>
                 <Link to='/'>
-                <TopButton>Continuer les achats</TopButton>
+                <TopButton>Voir d'autres arcticles</TopButton>
                 </Link>
             </Top>
             <Bottom>
@@ -189,7 +189,7 @@ const Cart = () => {
                     ))}
                 </Info>
                 <Summary>
-                    <SummaryTitle>MA COMMANDE</SummaryTitle>
+                    <SummaryTitle>MES ARTICLES FAVORIS</SummaryTitle>
                     <SummaryItem type="total">
                         <SummaryItemText>Total</SummaryItemText>
                         <SummaryItemPrice>{cart.total} €</SummaryItemPrice>
