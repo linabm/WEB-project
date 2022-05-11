@@ -4,27 +4,30 @@ import axios from "axios";
 
 const Publish = ({ token }) => {
   const [file, setFile] = useState();
+  const [name, setName] = useState("");
   const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [brand, setBrand] = useState("");
   const [size, setSize] = useState("");
   const [color, setColor] = useState("");
   const [condition, setCondition] = useState("");
-  const [city, setCity] = useState("");
-  const [country, setCountry] = useState("");
   const [price, setPrice] = useState(0);
+  const [seller, setSeller] = useState("");
 
   const formData = new FormData();
+  formData.append("picture", file);
+  formData.append("name", name);
   formData.append("title", title);
+  formData.append("Category", category);
   formData.append("description", description);
   formData.append("brand", brand);
   formData.append("size", size);
   formData.append("color", color);
   formData.append("condition", condition);
-  formData.append("city", city);
-  formData.append("country", country);
   formData.append("price", price);
-  formData.append("picture", file);
+  formData.append("seller", seller);
+  
 
   const history = useHistory();
 
@@ -72,6 +75,17 @@ const Publish = ({ token }) => {
           </div>
 
           <div className="input-file-div-container-c">
+            <h3>Nom</h3>
+            <input
+              type="text"
+              placeholder="ex : Chemise "
+              value={name}
+              onChange={(event) => {
+                setName(event.target.value);
+              }}
+            />
+          </div>
+          <div className="input-file-div-container-c">
             <h3>Titre</h3>
             <input
               type="text"
@@ -79,6 +93,17 @@ const Publish = ({ token }) => {
               value={title}
               onChange={(event) => {
                 setTitle(event.target.value);
+              }}
+            />
+          </div>
+          <div className="input-file-div-container-c">
+            <h3>Category</h3>
+            <input
+              type="text"
+              placeholder="ex : Vetement "
+              value={category}
+              onChange={(event) => {
+                setCategory(event.target.value);
               }}
             />
           </div>
@@ -140,28 +165,7 @@ const Publish = ({ token }) => {
               }}
             />
           </div>
-          <div className="input-file-div-container-c">
-            <h3>Pays</h3>
-            <input
-              type="text"
-              placeholder="ex : France"
-              value={country}
-              onChange={(event) => {
-                setCountry(event.target.value);
-              }}
-            />
-          </div>
-          <div className="input-file-div-container-c">
-            <h3>Ville</h3>
-            <input
-              type="text"
-              placeholder="ex : Paris"
-              value={city}
-              onChange={(event) => {
-                setCity(event.target.value);
-              }}
-            />
-          </div>
+         
           
           <div className="input-file-div-container-c">
             <h3>Prix</h3>
@@ -171,6 +175,17 @@ const Publish = ({ token }) => {
               value={price}
               onChange={(event) => {
                 setPrice(event.target.value);
+              }}
+            />
+          </div>
+          <div className="input-file-div-container-c">
+            <h3>Vendeur</h3>
+            <input
+              type="text"
+              placeholder="0.00 €"
+              value={seller}
+              onChange={(event) => {
+                setSeller(event.target.value);
               }}
             />
           </div>
