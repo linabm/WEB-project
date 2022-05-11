@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Redirect, useHistory } from "react-router-dom";
 import axios from "axios";
+import "publish.css";
 
 const Publish = ({ token }) => {
   const [file, setFile] = useState();
