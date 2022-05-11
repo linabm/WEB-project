@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import SearchIcon from '@mui/icons-material/Search';
 import Badge from '@mui/material/Badge';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import {mobile} from "../responsive"
 import { useSelector } from "react-redux";
 import {BrowserRouter as Router, Link} from 'react-router-dom'; 
@@ -97,7 +97,7 @@ const Navbar = () => {
                     <Link to="/cart">
                     <MenuItem>
                         <Badge badgeContent={quantity} color="primary">
-                            <ShoppingCartOutlinedIcon/>
+                            <FavoriteBorderOutlinedIcon/>
                         </Badge>
                     </MenuItem>
                     </Link>
