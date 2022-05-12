@@ -1,4 +1,4 @@
-import Cart from "./Pages/Cart";
+import Whishlist from "./Pages/Whishlist";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
@@ -21,7 +21,7 @@ const App = () => {
         <Route path="/" element={<Home />}></Route>
         <Route path="products/:category" element={<ProductList />}></Route>
         <Route path="product/:id" element={<Product />}></Route>
-        <Route path="cart" element= {<Cart />}></Route>
+        <Route path="whishlist" element= {<Whishlist />}></Route>
         <Route path="publish" element= {<Publish />}></Route>
         <Route path="login" element= { user ? <Navigate to="/" /> : <Login/>} ></Route>
         <Route path="register" element={ user ? <Navigate to="/" /> : <Register/>}></Route>
