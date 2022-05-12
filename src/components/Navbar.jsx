@@ -94,7 +94,7 @@ const Navbar = () => {
                     <Link to="/publish">
                     <MenuItem>PUBLISH</MenuItem>
                     </Link>
-                    <Link to="/cart">
+                    <Link to="/whishlist">
                     <MenuItem>
                         <Badge badgeContent={quantity} color="primary">
                             <FavoriteBorderOutlinedIcon/>
