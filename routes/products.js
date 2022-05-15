@@ -14,16 +14,6 @@ const { promisify } = require("util");
 const pipeline = promisify(require("stream").pipeline);
 const router = require("express").Router();
 
-//DELETE
-router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
-  try {
-    await Product.findByIdAndDelete(req.params.id);
-    res.status(200).json("Product has been deleted...");
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
 //GET PRODUCT
 router.get("/find/:id", async (req, res) => {
   try {
@@ -60,14 +50,9 @@ router.get("/", async (req, res) => {
   }
 });
 
-
-
-
-//PUBLISH - fonctionne comme un post de résaux social
-
-
+//PUBLISH 
 router.post('/', /*upload.single("file"),*/ async (req, res) => {
-  console.log(req.body.color);
+  console.log(req.body.posterName);
 
   /*
 
