@@ -1,40 +1,18 @@
+
+
 const Product = require("../models/Product");
+
 const {
   verifyToken,
   verifyTokenAndAuthorization,
   verifyTokenAndAdmin,
 } = require("./verifyToken");
-
+const fs = require("fs");
+const multer = require("multer");
+const upload = multer();
+const { promisify } = require("util");
+const pipeline = promisify(require("stream").pipeline);
 const router = require("express").Router();
-
-//CREATE
-
-router.post("/", verifyTokenAndAdmin, async (req, res) => {
-  const newProduct = new Product(req.body);
-
-  try {
-    const savedProduct = await newProduct.save();
-    res.status(200).json(savedProduct);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-//UPDATE
-router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
-  try {
-    const updatedProduct = await Product.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: req.body,
-      },
-      { new: true }
-    );
-    res.status(200).json(updatedProduct);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
 
 //DELETE
 router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
@@ -58,6 +36,7 @@ router.get("/find/:id", async (req, res) => {
 
 //GET ALL PRODUCTS
 router.get("/", async (req, res) => {
+  console.log("ouais coucou à")
   const qNew = req.query.new;
   const qCategory = req.query.category;
   try {
@@ -83,12 +62,18 @@ router.get("/", async (req, res) => {
 
 
 
+
 //PUBLISH - fonctionne comme un post de résaux social
 
-router.post('/', upload.single("file"), async (req, res) => {
 
+router.post('/', /*upload.single("file"),*/ async (req, res) => {
+  console.log(req.body.color);
+
+  /*
+
+  
   let fileName;
-
+  
   if (req.file !== null) {
     try {
       if (
@@ -100,28 +85,36 @@ router.post('/', upload.single("file"), async (req, res) => {
 
       if (req.file.size > 500000) throw Error("max size");
     } catch (err) {
-      const errors = uploadErrors(err);
-      return res.status(201).json({ errors });
+      //const errors = uploadErrors(err);
+      return res.status(201).json(err);
     }
-    fileName = req.body.posterId + Date.now() + ".jpg";
-
+    
+    fileName = req.body.posterName + Date.now() + ".jpg";
+    
     await pipeline(
       req.file.stream,
-      fs.createWriteStream(
-        `${__dirname}/../client/public/uploads/posts/${fileName}`
+      *fs.createWriteStream(
+        `${__dirname}/./client/public/upload/product/${fileName}`
       )
     );
-  }
-
-  const newPost = new postModel({
-    posterId: req.body.posterId,
-    message: req.body.message,
-    picture: req.file !== null ? "./uploads/posts/" + fileName : "",
-    video: req.body.video,
-    likers: [],
-    comments: [],
+  } 
+ 
+  */
+  const newPost = new Product({
+    
+    posterName: req.body.posterName,
+    title: req.body.title,
+    desc: req.body.desc,
+    img: req.file, //req.file !== null ? "./upload/product/" + fileName : "",
+    //categories: { type: Array },
+    size: req.body.size,
+    color: req.body.color,
+    price: req.body.price,
+    état: req.body.état
+    
+   
   });
-
+  
   try {
     const post = await newPost.save();
     return res.status(201).json(post);

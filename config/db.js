@@ -1,18 +1,24 @@
+/*
 const { MongoClient } = require('mongodb');
-
+//const { MongoClient } = require('mongoose');
+const mongoose= require("mongoose");
 // Connection URL
-const url = 'mongodb+srv://Users_web:WEB123@cluster0.f8m4h.mongodb.net/test';
-//const client = new MongoClient(process.env.url);
+// db nadia: const url = 'mongodb+srv://LamaD:LamaD@cluster0.nv9ry.mongodb.net/shop?retryWrites=true&w=majority';
+const url= 'mongodb+srv://thaissia:sami@cluster0.vw2zq.mongodb.net/insappes?retryWrites=true&w=majority'
 const client = new MongoClient(url);
-const dbName = 'myProject';
+const dbName = 'insappes';
 
 async function main() {
   await client.connect();
-  console.log('Connected successfully to server');
-  return 'done.';
+  console.log('Connected successfully to mongo');
+  return '';
 }
 
 main()
   .then(console.log)
   .catch(console.error)
   .finally(() => client.close());
+  
+
+*/
+
