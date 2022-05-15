@@ -1,5 +1,8 @@
 import styled from "styled-components";
-import {mobile} from "../responsive"
+import {mobile} from "../responsive";
+import { useState } from "react";
+import { publicRequest } from "../requestMethods";
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   width: 100vw;
@@ -55,22 +58,42 @@ const Button = styled.button`
 `;
 
 const Register = () => {
+  const navigate = useNavigate();
+  const [Username, setUsername] = useState("");
+  const [Password, setPassword] = useState("");
+  const [Email, setEmail] = useState("");
+  
+  const handleClick = (e) => {
+    e.preventDefault(); //rafraichit pas la page
+    const registered = {
+      username: Username,
+      email: Email,
+      password: Password
+    }
+    publicRequest.post("/auth/register", registered)
+    .then(response => console.log(response.data))
+    
+    setUsername('');
+    setPassword('');
+    setEmail('');
+
+    alert("Bien enregistré ! ");
+    navigate('/');
+  };
+
   return (
     <Container>
       <Wrapper>
         <Title>Créer un compte</Title>
         <Form>
-          <Input placeholder="Nom" />
-          <Input placeholder="Prénom" />
-          <Input placeholder="username" />
-          <Input placeholder="email" />
-          <Input placeholder="mot de passe" />
-          <Input placeholder="confirmation mot de passe" />
+          <Input placeholder="username" onChange={(e) => setUsername(e.target.value)}/>
+          <Input placeholder="email" onChange={(e) => setEmail(e.target.value)}/>
+          <Input placeholder="mot de passe" type="password" onChange={(e) => setPassword(e.target.value)}/>
           <Agreement>
           En créant un compte, je consens au traitement de mes 
           données personnelles conformément à la <b>PRIVACY POLICY</b>
           </Agreement>
-          <Button>CREER</Button>
+          <Button onClick={handleClick}>CREER</Button>
         </Form>
       </Wrapper>
     </Container>
