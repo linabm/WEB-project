@@ -105,11 +105,9 @@ return (
         </SocialContainer>
     </Left>
     <Center>
-        <Title>Liens utiles</Title>
+        <Title>Catégories utiles</Title>
         <List>
-            <Link to='/'>
         <ListItem>Home</ListItem>
-            </Link>
         <ListItem>Vêtements</ListItem>
         <ListItem>Decoration</ListItem>
         <ListItem>Fourniture / Objets</ListItem>
