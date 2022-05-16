@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import {mobile} from "../responsive"
 import { useState } from "react";
-import create from "../redux/postApi";
-import FormData from 'form-data';
+import { publicRequest } from "../requestMethods";
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   width: 100vw;
@@ -72,120 +72,62 @@ const Error = styled.span`
 `;
 
 const Publish = () => {
-    const [name, setName] = useState({});
-    const [file, setFile] = useState(null);
-    const [cat, setCat] = useState([]);
-    const [pseudo, setPseudo] = useState({});
-    const [description, setDescription] = useState({});
-    const [price, setPrice] = useState({});
-    const [size, setSize] = useState({});
-
-    const data= new FormData();
-
-   /* const [data,setData] =useState(new FormData)
-  
-    const handleData=()=>{
-      setData({
-        data: data.set('file',file)
-      })
-    }*/
-
-   /* const handleChangeFile=({currentTarget})=>{
-      const{file, value}= currentTarget;
-
-      setFile({
-        [file]: value
-      })
-      data.set('file',file[0])
-    }
-    */
+    const navigate = useNavigate();
+    const [Titre, setTitre] = useState("");
+    const [Desc, setDesc] = useState("");
+    const [Img, setImg] = useState("");
+    const [Categories, setCategories] = useState("");
+    const [Size, setSize] = useState("");
+    const [Color, setColor] = useState("");
+    const [Price, setPrice] = useState(0);
+    const [Author, setAuthor] = useState("");
 
 
-    /*const handleChange = (e) => { 
-        setInputs((prev) => {
-        return { ...prev, [e.target.name]: e.target.value };
-        });
-    };*/
-
-    const handleChangeName= ({currentTarget})=>{
-      const{name, value}= currentTarget;
-
-   
-      setName({
-        [name]: value
-      })
-      
-    }
-    const handleChangePseudo= ({currentTarget})=>{
-      const{pseudo, value}= currentTarget;
-
-   
-      setPseudo({
-        [pseudo]: value
-      })
-      
-    }
-    const handleChangeDescription= ({currentTarget})=>{
-      const{description, value}= currentTarget;
-
-   
-      setDescription({
-        [description]: value
-      })
-      
-    }
-
-    const handleChangePrice= ({currentTarget})=>{
-      const{price, value}= currentTarget;
-
-   
-      setPrice({
-        [price]: value
-      })
-      
-    }
-    const handleChangeSize= ({currentTarget})=>{
-      const{size, value}= currentTarget;
-
-   
-      setSize({
-        [size]: value
-      })
-      
-    }
-
-    const handleCat = (e) => {
-        setCat(e.target.value.split(","));
-    };
 
     const handleClick = (e) => {
-      console.log("hey")
-      e.preventDefault()
-      console.log(name)
-      const data= create(name,pseudo,size,description,price)
+      e.preventDefault(); //rafraichit pas la page
+      const produit = {
+        title: Titre,
+        desc: Desc,
+        img: Img,
+        categories: Categories, 
+        size: Size,
+        color: Color,
+        price: Price,
+        author: Author,
+      }
+      publicRequest.post("/products", produit)
+      .then(response => console.log(response.data))
+      
+      setTitre('');
+      setDesc('');
+      setImg('');
+      setCategories('');
+      setSize('');
+      setColor('');
+      setPrice(0);
+      setAuthor('');
+  
+      alert("Bien publié ! ");
+      navigate('/');
     };
-
-    /*const handleSubmit=(e)=>{
-      e.preventDefault()
-      console.log(e)
-      const data= create(file)
-
-    }*/
 
   return (
     <Container>
       <Wrapper>
         <Title>Nouveau Produit</Title>
-        <Form >
-          <Input type = "file" placeholder="Image" onChange={(e) => setFile(e.target.files[0])} />
-          <Input type = "text" placeholder="Nom du produit" onChange={handleChangeName} />
-          <Input type = "text" placeholder="Description" onChange={handleChangeDescription} />
-          <Input type = "text" placeholder="Prix" onChange={handleChangePrice} />
-          <Input type = "text" placeholder="Categorie" onChange={handleCat} />
-          <Input type = "text" placeholder="Taille" onChange={handleChangeSize} />
-          <Input type = "text" placeholder="Auteur" onChange={handleChangePseudo}/>
+        <Form>
+          {/* <Input type = "file" placeholder="Image" onChange={(e) => setFile(e.target.files[0])} /> */}
+          <Input type = "string" placeholder="lien image" onChange={(e) => setImg(e.target.value)} />
+          <Input type = "text" placeholder="Nom du produit" onChange={(e) => setTitre(e.target.value)}/>
+          <Input type = "text" placeholder="Description" onChange={(e) => setDesc(e.target.value)} />
+          <Input type = "text" placeholder="Prix" onChange={(e) => setPrice(e.target.value)} />
+          <Input type = "text" placeholder="Categorie" onChange={(e) => setCategories(e.target.value)} />
+          <Input type = "text" placeholder="Taille" onChange={(e) => setSize(e.target.value)} />
+          <Input type = "text" placeholder="Couleur" onChange={(e) => setColor(e.target.value)} />
+          <Input type = "text" placeholder="Auteur" onChange={(e) => setAuthor(e.target.value)} />
         </Form>
-        <Button  onClick={handleClick}> Publier</Button>
+        <Button onClick={handleClick}>Publier</Button>
       </Wrapper>
     </Container>
   );
