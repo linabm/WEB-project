@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import {mobile} from "../responsive"
 import { useState } from "react";
+import create from "../redux/postApi";
+import FormData from 'form-data';
 
 const Container = styled.div`
   width: 100vw;
@@ -70,40 +72,120 @@ const Error = styled.span`
 `;
 
 const Publish = () => {
-    const [inputs, setInputs] = useState({});
+    const [name, setName] = useState({});
     const [file, setFile] = useState(null);
     const [cat, setCat] = useState([]);
+    const [pseudo, setPseudo] = useState({});
+    const [description, setDescription] = useState({});
+    const [price, setPrice] = useState({});
+    const [size, setSize] = useState({});
 
-    const handleChange = (e) => { 
+    const data= new FormData();
+
+   /* const [data,setData] =useState(new FormData)
+  
+    const handleData=()=>{
+      setData({
+        data: data.set('file',file)
+      })
+    }*/
+
+   /* const handleChangeFile=({currentTarget})=>{
+      const{file, value}= currentTarget;
+
+      setFile({
+        [file]: value
+      })
+      data.set('file',file[0])
+    }
+    */
+
+
+    /*const handleChange = (e) => { 
         setInputs((prev) => {
         return { ...prev, [e.target.name]: e.target.value };
         });
-    };
+    };*/
+
+    const handleChangeName= ({currentTarget})=>{
+      const{name, value}= currentTarget;
+
+   
+      setName({
+        [name]: value
+      })
+      
+    }
+    const handleChangePseudo= ({currentTarget})=>{
+      const{pseudo, value}= currentTarget;
+
+   
+      setPseudo({
+        [pseudo]: value
+      })
+      
+    }
+    const handleChangeDescription= ({currentTarget})=>{
+      const{description, value}= currentTarget;
+
+   
+      setDescription({
+        [description]: value
+      })
+      
+    }
+
+    const handleChangePrice= ({currentTarget})=>{
+      const{price, value}= currentTarget;
+
+   
+      setPrice({
+        [price]: value
+      })
+      
+    }
+    const handleChangeSize= ({currentTarget})=>{
+      const{size, value}= currentTarget;
+
+   
+      setSize({
+        [size]: value
+      })
+      
+    }
 
     const handleCat = (e) => {
         setCat(e.target.value.split(","));
     };
 
     const handleClick = (e) => {
-        console.log("publier ! ");
-        // a faire //
+      console.log("hey")
+      e.preventDefault()
+      console.log(name)
+      const data= create(name,pseudo,size,description,price)
     };
+
+    /*const handleSubmit=(e)=>{
+      e.preventDefault()
+      console.log(e)
+      const data= create(file)
+
+    }*/
 
   return (
     <Container>
       <Wrapper>
         <Title>Nouveau Produit</Title>
-        <Form>
+        <Form >
           <Input type = "file" placeholder="Image" onChange={(e) => setFile(e.target.files[0])} />
-          <Input type = "text" placeholder="Nom du produit" onChange={handleChange} />
-          <Input type = "text" placeholder="Description" onChange={handleChange} />
-          <Input type = "text" placeholder="Prix" onChange={handleChange} />
+          <Input type = "text" placeholder="Nom du produit" onChange={handleChangeName} />
+          <Input type = "text" placeholder="Description" onChange={handleChangeDescription} />
+          <Input type = "text" placeholder="Prix" onChange={handleChangePrice} />
           <Input type = "text" placeholder="Categorie" onChange={handleCat} />
-          <Input type = "text" placeholder="Taille" onChange={handleChange} />
-          <Input type = "text" placeholder="Couleur" onChange={handleChange} />
-          <Input type = "text" placeholder="Auteur" onChange={handleChange} />
+          <Input type = "text" placeholder="Taille" onChange={handleChangeSize} />
+          <Input type = "text" placeholder="Auteur" onChange={handleChangePseudo}/>
         </Form>
-        <Button onClick={handleClick}>Publier</Button>
+        <Button  onClick={handleClick}> Publier</Button>
       </Wrapper>
     </Container>
   );
