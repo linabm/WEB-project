@@ -2,7 +2,6 @@ import styled from "styled-components"
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import Newsletter from "../components/Newsletter";
 import { Add, Remove } from "@mui/icons-material";
 import {mobile} from "../responsive";
 import { useLocation } from "react-router-dom";
@@ -191,7 +190,6 @@ const Product = () => {
                 </AddContainer>
             </InfoContainer>
         </Wrapper>
-        <Newsletter/>
         <Footer/>
     </Container>
   )
