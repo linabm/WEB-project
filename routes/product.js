@@ -1,43 +1,29 @@
 const Product = require("../models/Product");
-const {
-  verifyToken,
-  verifyTokenAndAuthorization,
-  verifyTokenAndAdmin,
-} = require("./verifyToken");
-
 const router = require("express").Router();
 
-//CREATE
-
-router.post("/", verifyTokenAndAdmin, async (req, res) => {
-  const newProduct = new Product(req.body);
-
+//PUBLISH
+router.post('/', async (req, res) => {
+  const newProduit = new Product({
+    title: req.body.title,
+    desc: req.body.desc,
+    img: req.body.img, 
+    categories: req.body.categories,
+    size: req.body.size,
+    color: req.body.color,
+    price: req.body.price,
+    author: req.body.author,
+  });
+  
   try {
-    const savedProduct = await newProduct.save();
-    res.status(200).json(savedProduct);
+    const post = await newProduit.save();
+    return res.status(201).json(post);
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(400).send(err);
   }
-});
-
-//UPDATE
-router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
-  try {
-    const updatedProduct = await Product.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: req.body,
-      },
-      { new: true }
-    );
-    res.status(200).json(updatedProduct);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+}); 
 
 //DELETE
-router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     await Product.findByIdAndDelete(req.params.id);
     res.status(200).json("Product has been deleted...");
