@@ -1,7 +1,6 @@
 import { Facebook, Instagram, MailOutline, Phone, Pinterest, Room, Twitter } from "@mui/icons-material";
 import styled from "styled-components";
 import {mobile} from "../responsive";
-import {BrowserRouter as Router, Link} from 'react-router-dom'; 
 
 
 const Container = styled.div`

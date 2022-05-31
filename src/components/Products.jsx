@@ -1,6 +1,4 @@
-import { CollectionsOutlined } from "@mui/icons-material";
 import styled from "styled-components";
-import { popularProducts } from "../data"
 import Product from './Product';
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -63,7 +61,7 @@ const Products = ({ cat, filters, sort }) => {
       {cat
         ? filteredProducts.map((item) => <Product item={item} key={item.id} />)
         : products
-            .slice(0, 8)
+            .slice(0,100)
             .map((item) => <Product item={item} key={item.id} />)}
     </Container>
   );

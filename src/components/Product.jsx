@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import {BrowserRouter as Router, Link} from 'react-router-dom';
+import { Link} from 'react-router-dom';
 
 const Info = styled.div`
     opacity: 0;
