@@ -7,10 +7,10 @@ import {mobile} from "../responsive";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { publicRequest } from "../requestMethods";
-import { addProduct } from "../redux/cartRedux";
+import { addProduct } from "../redux/wishRedux";
 import { useDispatch } from "react-redux";
 
-const Container = styled.div``;
+const Container = styled.div``; 
 
 const Wrapper = styled.div`
   padding: 50px;
@@ -126,7 +126,7 @@ const Product = () => {
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
 
   useEffect(() => {
     const getProduct = async () => {

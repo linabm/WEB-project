@@ -2,7 +2,6 @@ import styled from "styled-components"
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import Newsletter from "../components/Newsletter";
 import Products from "../components/Products";
 import {mobile} from "../responsive";
 import { useLocation } from "react-router-dom";
@@ -61,7 +60,7 @@ const ProductList = () => {
         <FilterContainer>
             <Filter><FilterText>Filtre :</FilterText>
                 <Select name="color" onChange={handleFilters}>
-                <Option disabled selected>Couleur</Option>
+                <Option disabled selected >Couleur</Option>
                 <Option>white</Option>
                 <Option>black</Option>
                 <Option>red</Option>
@@ -90,7 +89,6 @@ const ProductList = () => {
             </Filter>
         </FilterContainer>
         <Products cat={cat} filters={filters} sort={sort} />
-        <Newsletter/>
         <Footer/>
     </Container>
   )

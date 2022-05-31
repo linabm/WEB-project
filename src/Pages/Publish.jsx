@@ -3,6 +3,8 @@ import {mobile} from "../responsive"
 import { useState } from "react";
 import { publicRequest } from "../requestMethods";
 import { useNavigate } from 'react-router-dom';
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const Container = styled.div`
   width: 100vw;
@@ -43,9 +45,6 @@ const Input = styled.input`
   padding: 10px;
 `;
 
-const InputText = styled.input`
-`;
-
 const Button = styled.button`
   width: 40%;
   border: none;
@@ -60,19 +59,10 @@ const Button = styled.button`
   }
 `;
 
-const Link = styled.a`
-  margin: 5px 0px;
-  font-size: 12px;
-  text-decoration: underline;
-  cursor: pointer;
-`; 
-
-const Error = styled.span`
-  color: red;
-`;
 
 const Publish = () => {
     const navigate = useNavigate();
+    // const [file, setFile] = useState("");
     const [Titre, setTitre] = useState("");
     const [Desc, setDesc] = useState("");
     const [Img, setImg] = useState("");
@@ -81,7 +71,7 @@ const Publish = () => {
     const [Color, setColor] = useState("");
     const [Price, setPrice] = useState(0);
     const [Author, setAuthor] = useState("");
-
+    const SizeOptions = ['XS', 'S', 'M', 'L', 'XL'];
 
 
     const handleClick = (e) => {
@@ -98,7 +88,6 @@ const Publish = () => {
       }
       publicRequest.post("/products", produit)
       .then(response => console.log(response.data))
-      
       setTitre('');
       setDesc('');
       setImg('');
@@ -107,6 +96,8 @@ const Publish = () => {
       setColor('');
       setPrice(0);
       setAuthor('');
+
+      // setFile("");
   
       alert("Bien publié ! ");
       navigate('/');
@@ -118,14 +109,25 @@ const Publish = () => {
         <Title>Nouveau Produit</Title>
         <Form>
           {/* <Input type = "file" placeholder="Image" onChange={(e) => setFile(e.target.files[0])} /> */}
-          <Input type = "string" placeholder="lien image" onChange={(e) => setImg(e.target.value)} />
+          <Input type = "text" placeholder="lien image" onChange={(e) => setImg(e.target.value)} />
           <Input type = "text" placeholder="Nom du produit" onChange={(e) => setTitre(e.target.value)}/>
           <Input type = "text" placeholder="Description" onChange={(e) => setDesc(e.target.value)} />
           <Input type = "text" placeholder="Prix" onChange={(e) => setPrice(e.target.value)} />
-          <Input type = "text" placeholder="Categorie" onChange={(e) => setCategories(e.target.value)} />
-          <Input type = "text" placeholder="Taille" onChange={(e) => setSize(e.target.value)} />
-          <Input type = "text" placeholder="Couleur" onChange={(e) => setColor(e.target.value)} />
+          <Input type = "text" placeholder="Categorie : vetement / decoration / fournir " onChange={(e) => setCategories(e.target.value)} />
+          <Input type = "text" placeholder="Taille : XS / S / L / XL" onChange={(e) => setSize(e.target.value)} />
+          <Input type = "text" placeholder="Couleur (minuscule et anglais)" onChange={(e) => setColor(e.target.value)} />
           <Input type = "text" placeholder="Auteur" onChange={(e) => setAuthor(e.target.value)} />
+          <Autocomplete
+          style={{width:320}}
+          autoSelect
+          options={SizeOptions}
+          renderInput={(params) => (
+          <TextField {...params}
+            variant="outlined"
+            label="Taille"
+           />
+        )}
+      />
         </Form>
         <Button onClick={handleClick}>Publier</Button>
       </Wrapper>

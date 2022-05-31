@@ -1,11 +1,14 @@
-import { Remove, Add } from "@mui/icons-material";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import {mobile} from "../responsive";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { removeProduct, selectItems } from "../redux/wishRedux";
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import { useDispatch } from "react-redux";
+
 
 const Container = styled.div``;
 
@@ -105,20 +108,14 @@ const ProductPrice = styled.div`
   font-size: 30px;
   font-weight: 200;
   ${mobile({marginBottom: "20px"})}
-`;
-
-const Hr = styled.hr`
-  background-color: #eee;
-  border: none;
-  height: 1px;
-`;
+`; 
 
 const Summary = styled.div`
   flex: 1;
   border: 0.5px solid lightgray;
   border-radius: 10px;
   padding: 20px;
-  height: 50vh;
+  height: 30vh;
 `;
 
 const SummaryTitle = styled.h1`
@@ -137,21 +134,30 @@ const SummaryItemText = styled.span``;
 
 const SummaryItemPrice = styled.span``;
 
-const Button = styled.button`
-  width: 100%;
-  padding: 10px;
-  background-color: black;
-  color: white;
-  font-weight: 600;
-`;
-
 const Message = styled.span`
   font-weight: 400;
   text-align: center;
 `;
 
+const MenuItem = styled.div`
+    font-size:17px;
+    cursor: pointer;
+    margin-left: 25px;
+    ${mobile({fontSize:"12px", marginLeft:"10px"})}
+`;
+
 const Cart = () => {
-  const cart = useSelector(state=>state.cart)
+
+  const cart = useSelector(state=>state.cart);
+  const items = useSelector(selectItems)
+  const dispatch = useDispatch(); 
+
+  const handleClick = (e) => {
+    dispatch(
+      removeProduct( items )
+    );
+  };
+
   return (
     <Container>
         <Navbar/>
@@ -178,18 +184,20 @@ const Cart = () => {
                             </Details>
                         </ProductDetail>
                         <PriceDetail>
+                            <MenuItem>
+                            <DeleteOutlinedIcon onClick={handleClick}/>
+                            </MenuItem>
                             <ProductAmountContainer>
-                                <Add/>
+                                Quantité : 
                                 <ProductAmount>{product.quantity}</ProductAmount>
-                                <Remove/>
                             </ProductAmountContainer>
-                            <ProductPrice>{product.price*product.quantity} €</ProductPrice>
+                            <ProductPrice>{product.price} €</ProductPrice>
                         </PriceDetail>
                     </Product>
                     ))}
                 </Info>
                 <Summary>
-                    <SummaryTitle>MES ARTICLES FAVORIS</SummaryTitle>
+                    <SummaryTitle>ARTICLES FAVORIS</SummaryTitle>
                     <SummaryItem type="total">
                         <SummaryItemText>Total</SummaryItemText>
                         <SummaryItemPrice>{cart.total} €</SummaryItemPrice>

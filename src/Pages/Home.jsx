@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Announcement from '../components/Announcement'
 import Categories from '../components/Categories';
 import Footer from '../components/Footer';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar'
 import Products from '../components/Products';
 import Sliders from '../components/Sliders'
 
