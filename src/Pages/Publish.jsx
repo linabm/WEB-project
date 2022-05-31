@@ -117,7 +117,7 @@ const Publish = () => {
           <Input type = "text" placeholder="Taille : XS / S / L / XL" onChange={(e) => setSize(e.target.value)} />
           <Input type = "text" placeholder="Couleur (minuscule et anglais)" onChange={(e) => setColor(e.target.value)} />
           <Input type = "text" placeholder="Auteur" onChange={(e) => setAuthor(e.target.value)} />
-          <Autocomplete
+          {/* <Autocomplete
           style={{width:320}}
           autoSelect
           options={SizeOptions}
@@ -127,7 +127,7 @@ const Publish = () => {
             label="Taille"
            />
         )}
-      />
+      /> */}
         </Form>
         <Button onClick={handleClick}>Publier</Button>
       </Wrapper>
