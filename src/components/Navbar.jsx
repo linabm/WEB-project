@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Badge from '@mui/material/Badge';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import {mobile} from "../responsive"
 import { useSelector } from "react-redux";
 import {Link} from 'react-router-dom'; 
@@ -58,7 +58,7 @@ const Navbar = () => {
                     <Link to="/whishlist">
                     <MenuItem>
                         <Badge badgeContent={quantity} color="primary">
-                            <FavoriteBorderOutlinedIcon/>
+                            <ShoppingCartOutlinedIcon/>
                         </Badge>
                     </MenuItem>
                     </Link>
