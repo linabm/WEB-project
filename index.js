@@ -8,7 +8,7 @@ const cors = require("cors");
 dotenv.config();
 
 mongoose
-  .connect(mongodb+srv://LamaD:LamaD@cluster0.nv9ry.mongodb.net/shop?retryWrites=true&w=majority)
+  .connect("mongodb+srv://LamaD:LamaD@cluster0.nv9ry.mongodb.net/shop?retryWrites=true&w=majority")
   .then(() => console.log("DB Connection Successfull!"))
   .catch((err) => {
     console.log(err);
