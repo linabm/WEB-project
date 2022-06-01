@@ -18,7 +18,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/api/products", productRoute); 
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 5000, () => {
   console.log("Backend server is running!");
   
 });
